@@ -1,0 +1,161 @@
+% Unofficial DKU adaptation of the PolyU / Westlake theme.
+% Original copyright (c) 2023 Rui Song, MIT License; see LICENSE.
+% University logos and photos are not covered by the code license.
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{dku}[2026/11/15 Duke Kunshan University presentation theme]
+\RequirePackage{tikz}
+\RequirePackage{graphicx}
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{listings}
+\usetikzlibrary{calc}
+
+% Project palette coordinated with the supplied logos, not a brand manual.
+\definecolor{dkublue}{HTML}{073B70}
+\definecolor{dkugreen}{HTML}{00734C}
+\definecolor{dkulightgreen}{HTML}{6DB445}
+\definecolor{dkugray}{HTML}{526371}
+\definecolor{codegray}{HTML}{F3F5F7}
+\definecolor{codepurple}{HTML}{684A8E}
+\newcommand{\dkuwordmark}{source/dku/wordmark.jpeg}
+\newcommand{\dkucover}{source/dku/pavilion-4.jpg}
+\newcommand{\dkusectionbackground}{source/dku/pavilion-2.jpg}
+
+\setbeamercolor{normal text}{fg=black,bg=white}
+\setbeamercolor{structure}{fg=dkublue}
+\setbeamercolor{title}{fg=white}
+\setbeamercolor{subtitle}{fg=white}
+\setbeamercolor{frametitle}{fg=dkublue,bg=white}
+\setbeamercolor{framesubtitle}{fg=dkugray}
+\setbeamercolor{alerted text}{fg=dkugreen}
+\setbeamercolor{block title}{fg=white,bg=dkublue}
+\setbeamercolor{block body}{fg=black,bg=dkublue!5}
+\setbeamercolor{block title example}{fg=white,bg=dkugreen}
+\setbeamercolor{block body example}{fg=black,bg=dkugreen!5}
+\setbeamercolor{block title alerted}{fg=white,bg=dkugreen}
+\setbeamercolor{block body alerted}{fg=black,bg=dkugreen!5}
+\setbeamercolor{footline}{fg=white,bg=dkublue}
+\setbeamercolor{dku footer section}{fg=white,bg=dkugreen}
+\setbeamerfont{title}{series=\bfseries,size=\Large}
+\setbeamerfont{subtitle}{size=\small}
+\setbeamerfont{frametitle}{series=\bfseries,size=\large}
+\setbeamerfont{framesubtitle}{series=\mdseries,size=\small}
+\setbeamerfont{block title}{series=\bfseries,size=\normalsize}
+\setbeamerfont{footline}{size=\tiny}
+\usefonttheme{serif}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{headline}{}
+\setbeamertemplate{blocks}[rounded][shadow=false]
+\setbeamertemplate{itemize item}{\textbullet}
+\setbeamertemplate{itemize subitem}{\textemdash}
+\setbeamertemplate{itemize subsubitem}{\ensuremath{\circ}}
+\setbeamersize{text margin left=7mm,text margin right=7mm}
+\setlength{\parskip}{5pt}
+\hypersetup{colorlinks,linkcolor=dkublue,citecolor=dkugreen,urlcolor=dkublue}
+\lstdefinestyle{mystyle}{
+  backgroundcolor=\color{codegray},
+  commentstyle=\color{dkugray},keywordstyle=\color{dkublue},
+  stringstyle=\color{codepurple},numberstyle=\tiny\color{dkugray},
+  basicstyle=\ttfamily\scriptsize,breaklines=true,
+  captionpos=b,keepspaces=true,numbers=left,numbersep=5pt,
+  showspaces=false,showstringspaces=false,showtabs=false,tabsize=4,
+  xleftmargin=10pt,xrightmargin=10pt
+}
+\lstset{style=mystyle}
+
+% White header and fine inset rule, following the supplied reference slide.
+\setbeamertemplate{frametitle}{%
+  \nointerlineskip
+  \begin{beamercolorbox}[wd=\paperwidth,sep=0pt]{frametitle}
+    \vskip7pt
+    \hbox to \paperwidth{\hskip7mm%
+      \begin{minipage}[c]{\dimexpr\paperwidth-0.13\paperwidth-18mm\relax}
+        \raggedright\usebeamerfont{frametitle}\strut\insertframetitle\strut\par
+        \ifx\insertframesubtitle\@empty\else
+          {\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertframesubtitle\strut\par}
+        \fi
+      \end{minipage}\hfill
+      \begin{minipage}[c]{0.13\paperwidth}
+        \includegraphics[width=\linewidth]{\dkuwordmark}
+      \end{minipage}\hskip7mm}
+    \vskip5pt
+    \hbox{\hskip7mm\color{dkugray!65}\rule{\dimexpr\paperwidth-14mm\relax}{0.4pt}}
+    \vskip3pt
+  \end{beamercolorbox}
+}
+
+\setbeamertemplate{title page}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \fill[white] (current page.south west) rectangle (current page.north east);
+    \node[anchor=west,inner sep=0pt] at
+      ($(current page.north west)+(0.055\paperwidth,-0.15\paperheight)$)
+      {\includegraphics[width=0.32\paperwidth]{\dkuwordmark}};
+    \begin{scope}
+      \clip ($(current page.south west)+(0.49\paperwidth,0)$) rectangle
+        ($(current page.north east)+(0,-0.30\paperheight)$);
+      \node[anchor=south,inner sep=0pt] at
+        ($(current page.south west)+(0.745\paperwidth,0)$)
+        {\includegraphics[height=0.70\paperheight]{\dkucover}};
+    \end{scope}
+    \fill[dkublue] (current page.south west) rectangle
+      ($(current page.north west)+(0.49\paperwidth,-0.30\paperheight)$);
+    \node[anchor=north west,inner sep=0pt,text=white,text width=0.40\paperwidth]
+      at ($(current page.north west)+(0.055\paperwidth,-0.35\paperheight)$) {%
+      {\color{dkulightgreen}\rule{13mm}{1.2pt}}\par\vspace{5pt}
+      {\usebeamerfont{title}\raggedright\inserttitle\par}
+      \vspace{7pt}{\usebeamerfont{subtitle}\raggedright\insertsubtitle\par}
+    };
+    \node[anchor=south west,inner sep=0pt,text=white,text width=0.40\paperwidth]
+      at ($(current page.south west)+(0.055\paperwidth,0.065\paperheight)$) {%
+      {\small\insertauthor\par}\vspace{3pt}
+      {\footnotesize\insertinstitute\par\insertdate\par}
+    };
+  \end{tikzpicture}
+}
+\renewcommand{\maketitle}{%
+  \ifbeamer@inframe\titlepage\else
+    \begin{frame}[plain,noframenumbering]\titlepage\end{frame}
+  \fi
+}
+
+% Slim three-part information strip; use short metadata for long names.
+\setbeamertemplate{footline}{%
+  \leavevmode\hbox{%
+    \begin{beamercolorbox}[wd=0.30\paperwidth,ht=6pt,dp=2pt,leftskip=7mm,rightskip=2mm]{footline}%
+      \usebeamerfont{footline}\insertshortauthor
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=0.40\paperwidth,ht=6pt,dp=2pt,center]{dku footer section}%
+      \usebeamerfont{footline}\hypersetup{linkcolor=white}\insertsectionhead
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=0.30\paperwidth,ht=6pt,dp=2pt,leftskip=2mm,rightskip=7mm]{footline}%
+      \usebeamerfont{footline}\hfill\insertshortdate\hspace{5pt}%
+      \insertframenumber/\inserttotalframenumber
+    \end{beamercolorbox}%
+  }%
+}
+\setbeamertemplate{section in toc}{%
+  \leavevmode\textcolor{dkugreen}{\inserttocsectionnumber.}\quad\textbf{\inserttocsection}\par
+}
+\setbeamertemplate{section in toc shaded}[default][55]
+\setbeamertemplate{subsection in toc}{}
+\AtBeginSection[]{%
+  \begingroup
+  \setbeamertemplate{background}{%
+    \begin{tikzpicture}[remember picture,overlay]
+      \node[anchor=center,inner sep=0pt,opacity=0.08] at (current page.center)
+        {\includegraphics[width=\paperwidth]{\dkusectionbackground}};
+    \end{tikzpicture}}
+  \begin{frame}{Contents}
+    \tableofcontents[currentsection,hideallsubsections]
+  \end{frame}
+  \endgroup
+}
+\newcommand{\backmatter}[1][Thank you]{%
+  \begin{frame}[plain,noframenumbering]
+    \centering
+    \includegraphics[width=0.55\paperwidth]{\dkuwordmark}\par
+    \vspace{10mm}
+    {\color{dkublue}\Huge\bfseries #1\par}
+    \vspace{4mm}{\color{dkugreen}\rule{18mm}{1.2pt}}
+  \end{frame}
+}

@@ -1,0 +1,29 @@
+# LaTeX output; the curated DKU-Beamer.pdf preview is versioned.
+/build/
+/main.pdf
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.nav
+*.out
+*.run.xml
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
+*.xdv
+*.synctex(busy)
+
+# Local archives, OS files and agent/private configuration.
+*.zip
+.DS_Store
+Thumbs.db
+.agents/
+.codex/
+.aws/
+.env
+.env.*
